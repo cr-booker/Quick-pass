@@ -5,6 +5,10 @@ password that can be used for just about anything.
 It sucks trying to think of a new password on the fly  
 Quick-Pass takes care of that ickyness for you.  
 
+## Installation
+1. Open a terminal window and enter:  
+
+
 
 
 

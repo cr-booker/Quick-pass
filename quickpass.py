@@ -13,8 +13,6 @@ import sys
 
 def get_args():
     """
-    
-    
     Returns
     -------
     Output:(Class)
@@ -26,12 +24,6 @@ def get_args():
     parser.add_argument("-n", type=int, default=1, help="The Number of passwords to generate.")
     p_args =  parser.parse_args()
     return p_args
-    
-def get_tip():
-    """
-    """
-    tips = ()
-    return random.choice(tips)
     
 def generate_password(length, use_symbols):
     """
@@ -72,11 +64,6 @@ def generate_password(length, use_symbols):
                 return password 
             elif any(ch in string.punctuation for ch in password):
                 return password
-    
-def generate_passphrase():
-    """
-    """
-    pass
 
 def main():
     """
@@ -91,6 +78,7 @@ def main():
     Output(None)
     """
     args = get_args()
+    print('----------------')
     print('[+]Quick-Pass[+]')
     print('----------------')
     for i in range(args.n):
