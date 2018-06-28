@@ -21,12 +21,19 @@ def get_args():
         returns argparse.Namespace object
     """
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("-len", help="The desired number of characters to be used.")
-    parser.add_argument("-sc", help="Name to be used for archive.")
-    parser.add_argument("-n", help="The Number of passwords to generate.")
+    parser.add_argument("-length", type=int, default=10, help="The desired number of characters to be used.")
+    parser.add_argument("-sc", action='store_false', help="Name to be used for archive.")
+    parser.add_argument("-n", type=int, default=1, help="The Number of passwords to generate.")
+    p_args =  parser.parse_args()
     return p_args
     
-def generate_password(length=10, use_symbols=True):
+def get_tip():
+    """
+    """
+    tips = ()
+    return random.choice(tips)
+    
+def generate_password(length, use_symbols):
     """
     Generates a string of randomly 
     selected characters to be used as 
@@ -73,10 +80,21 @@ def generate_passphrase():
 
 def main():
     """
+    Main function: 
+    Starting point of script.
+    
+    Gets commandline arguments 
+    and calls the generate_password function.
+    
+    Returns
+    -------
+    Output(None)
     """
     args = get_args()
-    for i in range(20):
-        print(generate_password(15,False))
+    print('[+]Quick-Pass[+]')
+    print('----------------')
+    for i in range(args.n):
+        print(generate_password(args.length, args.sc))
     
 if __name__ == "__main__":
     main()
