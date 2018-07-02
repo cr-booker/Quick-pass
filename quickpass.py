@@ -13,6 +13,11 @@ import sys
 
 def get_args():
     """
+    Gets command-line arguments.
+    Creates the parameters the script expects to 
+    handle and parses the provided arguments.
+    
+    
     Returns
     -------
     Output:(Class)
@@ -27,24 +32,37 @@ def get_args():
     
 def generate_password(length, use_symbols):
     """
-    Generates a string of randomly 
+    Generates a string from randomly 
     selected characters to be used as 
     a password.
     
+    The function verifys the state of the 
+    use_symbols parameter and concatenates the string of 
+    characters accordingly.
+    
+    The password is built inside the while loop
+    continuing until the string contains atleast:
+    
+    1 number 
+    1 uppercase letter
+    1 lowercase letter
+    and if the use_symbols parameter is set to True
+    1 symbol/punctuation
+   
     Parameters
     ----------
     length(Int):
         The length of the password to be generated.
         ideally passwords should be have a minimum length 
-        of 8, but of course, the longer the better.
-        
+        of 10, but of course, the longer the better.
+       
         *Defaults to a length of 10
         
     use_symbols(Bool):
         The sequence of characters to be used 
         when generating the password.
         
-        *Defaults to a concatnated string containing :
+        *Defaults to a concatenated string containing :
         letters A-Z(upper & lowercase)
         digits 0-9
         punctuation and symbols(!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~)
@@ -81,6 +99,10 @@ def main():
     print('----------------')
     print('[+]Quick-Pass[+]')
     print('----------------')
+    if args.length < 8:
+        print('WARNING.\nIt is recommended you use generated \npasswords that are atleast 10'\
+               ' characters long.')
+        print('-' * 46)
     for i in range(args.n):
         print(generate_password(args.length, args.sc))
     
