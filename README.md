@@ -1,4 +1,4 @@
-#Quick-Pass
+# Quick-Pass
 
 Quck-Pass is a Python script that generates a strong  
 password that can be used for just about anything.  
