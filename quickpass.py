@@ -88,8 +88,18 @@ def main():
     Main function: 
     Starting point of script.
     
-    Gets commandline arguments 
-    and calls the generate_password function.
+    The get_args function 
+    retrieves the commmand line arguments
+    we wil be using.A for-loop is constructed calling and
+    printing the return value(string) of the 
+    generate_password function, 
+    
+    with args.n being the number of 
+    iterations(defaults to 1).
+    
+    If the args.length is less than 10 a warning 
+    is shown advising against generating shorter 
+    passwords(but im sure they have their uses).
     
     Returns
     -------
