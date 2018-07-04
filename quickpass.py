@@ -63,6 +63,11 @@ def generate_password(length, use_symbols):
         Ex. (!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~)
         
         *Defaults to True
+        
+   Returns
+   -------
+   Output(String):
+       Returns Password String
     """
     if use_symbols:
         chars = ''.join((string.ascii_letters, string.digits, string.punctuation))
@@ -84,6 +89,9 @@ def generate_passphrase(wordcount, spaces, path='.'):
    """
    Returns
    -------
+   Output:(String)
+   
+   
    
    """
    try:
