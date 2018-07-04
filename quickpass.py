@@ -25,7 +25,7 @@ def get_args():
     """
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("-length", type=int, default=10, help="The desired number of characters to be used.")
-    parser.add_argument("-sc", action='store_false', help="Name to be used for archive.")
+    parser.add_argument("-sc", action='store_false', help="Turns off the use of special characters.")
     parser.add_argument("-n", type=int, default=1, help="The Number of passwords to generate.")
     p_args =  parser.parse_args()
     return p_args
@@ -33,14 +33,13 @@ def get_args():
 def generate_password(length, use_symbols):
     """
     Generates a string from randomly 
-    selected characters to be used as 
-    a password.
+    selected characters.
     
     The function verifys the state of the 
-    use_symbols parameter and concatenates the string of 
+    use_symbols argument and concatenates the string of 
     characters accordingly.
     
-    The password is built inside the while loop
+    The password is built inside a while loop
     continuing until the string contains atleast:
     
     1 number 
@@ -59,13 +58,11 @@ def generate_password(length, use_symbols):
         *Defaults to a length of 10
         
     use_symbols(Bool):
-        The sequence of characters to be used 
-        when generating the password.
+        Determines whether to use 
+        symbols and punctuation
+        Ex. (!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~)
         
-        *Defaults to a concatenated string containing :
-        letters A-Z(upper & lowercase)
-        digits 0-9
-        punctuation and symbols(!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~)
+        *Defaults to True
     """
     if use_symbols:
         chars = ''.join((string.ascii_letters, string.digits, string.punctuation))
@@ -113,6 +110,11 @@ def main():
         print('WARNING.\nIt is recommended you use generated \npasswords that are atleast 10'\
                ' characters long.')
         print('-' * 46)
+    if not args.sc:           
+        print('WARNING.\nIt is recommended you include symbols \nand punctuation for a more'\
+              ' secure password.')
+        print('-' * 46)
+        
     for i in range(args.n):
         print(generate_password(args.length, args.sc))
     
