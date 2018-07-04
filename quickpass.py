@@ -79,6 +79,20 @@ def generate_password(length, use_symbols):
                 return password 
             elif any(ch in string.punctuation for ch in password):
                 return password
+                
+def generate_passphrase(wordcount, spaces, path='.'):
+   """
+   Returns
+   -------
+   
+   """
+   try:
+       with open('wordlist.txt') as infile:
+           wordlist = infile.read().splitlines()     
+   except FileNotFoundError:
+       print('Wordlist.txt not found.')
+       return
+   words = [random.SystemRandom().choice(x) for i in range(wordcount)]
 
 def main():
     """
@@ -107,12 +121,12 @@ def main():
     print('[+]Quick-Pass[+]')
     print('----------------')
     if args.length < 8:
-        print('WARNING.\nIt is recommended you use generated \npasswords that are atleast 10'\
-               ' characters long.')
+        print('WARNING.\nIt is recommended you use generated \npasswords that are'\
+              ' atleast 10 characters long.')
         print('-' * 46)
     if not args.sc:           
-        print('WARNING.\nIt is recommended you include symbols \nand punctuation for a more'\
-              ' secure password.')
+        print('WARNING.\nIt is recommended you include symbols \nand punctuation'\
+              ' for a more secure password.')
         print('-' * 46)
         
     for i in range(args.n):
