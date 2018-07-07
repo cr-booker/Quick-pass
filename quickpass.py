@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 """
+Quck-Pass is a Python script that
+generates a strong password or passphrase that can
+be used for just about anything.
+It sucks trying to think of a new
+password on the fly,
+Quick-Pass takes care of that ickyness for you.
 """
 import argparse 
 
@@ -14,10 +20,12 @@ import sys
 def get_args():
     """
     Gets command-line arguments.
-    Creates the parameters the script expects to 
+    
+    Creates the arguments and options the script expects to 
     handle and parses the provided arguments.
     
-    
+    All arguments have a single letter "-" version 
+    and a longer "--" version.
     Returns
     -------
     Output:(Class)
@@ -126,12 +134,14 @@ def main():
     printing the return value(string) of the 
     generate_password function, 
     
-    with args.n being the number of 
+    with args.quantity being the number of 
     iterations(defaults to 1).
     
     If the args.length is less than 10 a warning 
     is shown advising against generating shorter 
     passwords(but im sure they have their uses).
+    
+    
     
     Returns
     -------
