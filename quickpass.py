@@ -23,11 +23,13 @@ def get_args():
     Output:(Class)
         returns argparse.Namespace object
     """
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("-length", type=int, default=10, help="The desired number of characters to be used.")
-    parser.add_argument("-sc", action='store_false', help="Turns off the use of special characters.")
-    parser.add_argument("-n", type=int, default=1, help="The Number of passwords to generate.")
+    parser = argparse.ArgumentParser(prog='Quick-Pass', description=__doc__)
+    parser.add_argument("-l", "--length", type=int, default=10, help="The desired number of characters to be used.")
+    parser.add_argument("-a", "--alphanumeric", action='store_false', help="Turns off the use of special characters.")
+    parser.add_argument("-q", "--quantity", type=int, default=1, help="The number of passwords/passphrases to generate.")
     p_args =  parser.parse_args()
+    if p_args.length < 4:
+        parser.error("-length option requires an integer >= 4")
     return p_args
     
 def generate_password(length, use_symbols):
@@ -87,12 +89,18 @@ def generate_password(length, use_symbols):
                 
 def generate_passphrase(wordcount, spaces, path='.'):
    """
+   Parameters
+   ----------
+   wordcount(Int):
+       Number of words to be used 
+       for the passphrase
+       
+   spaces(Bool):
+       
+   
    Returns
    -------
    Output:(String)
-   
-   
-   
    """
    try:
        with open('wordlist.txt') as infile:
@@ -101,6 +109,11 @@ def generate_passphrase(wordcount, spaces, path='.'):
        print('Wordlist.txt not found.')
        return
    words = [random.SystemRandom().choice(x) for i in range(wordcount)]
+   if spaces:
+       passphrase = ' '.join(words)
+   else:
+       passphrase = ''.join(words)
+   
 
 def main():
     """
@@ -125,20 +138,22 @@ def main():
     Output(None)
     """
     args = get_args()
-    print('----------------')
-    print('[+]Quick-Pass[+]')
-    print('----------------')
+    print('----------------\n'\
+          '[+]Quick-Pass[+]\n'\
+          '----------------')
+          
     if args.length < 8:
         print('WARNING.\nIt is recommended you use generated \npasswords that are'\
               ' atleast 10 characters long.')
         print('-' * 46)
-    if not args.sc:           
+        
+    if not args.alphanumeric:           
         print('WARNING.\nIt is recommended you include symbols \nand punctuation'\
               ' for a more secure password.')
         print('-' * 46)
         
-    for i in range(args.n):
-        print(generate_password(args.length, args.sc))
+    for i in range(args.quantity):
+        print(generate_password(args.length, args.alphanumeric))
     
 if __name__ == "__main__":
     main()
