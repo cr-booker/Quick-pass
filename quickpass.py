@@ -35,6 +35,8 @@ def get_args():
     parser.add_argument("-l", "--length", type=int, default=10, help="The desired number of characters to be used.")
     parser.add_argument("-a", "--alphanumeric", action='store_false', help="Turns off the use of special characters.")
     parser.add_argument("-q", "--quantity", type=int, default=1, help="The number of passwords/passphrases to generate.")
+    
+    parser.add_argument('-p', "--passphrase")
     p_args =  parser.parse_args()
     if p_args.length < 4:
         parser.error("-length option requires an integer >= 4")
@@ -116,7 +118,7 @@ def generate_passphrase(wordcount, spaces, path='.'):
    except FileNotFoundError:
        print('Wordlist.txt not found.')
        return
-   words = [random.SystemRandom().choice(x) for i in range(wordcount)]
+   words = [random.SystemRandom().choice(wordlist) for i in range(wordcount)]
    if spaces:
        passphrase = ' '.join(words)
    else:
@@ -162,8 +164,8 @@ def main():
               ' for a more secure password.')
         print('-' * 46)
         
-    for i in range(args.quantity):
-        print(generate_password(args.length, args.alphanumeric))
+    for index, value in enumerate(range(args.quantity), start=1):
+        print(str(index) + ')', generate_password(args.length, args.alphanumeric))
     
 if __name__ == "__main__":
     main()
