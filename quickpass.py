@@ -163,7 +163,7 @@ def show_password(args):
     for index, value in enumerate(range(args.quantity), start=1):
         print(str(index) + ')', generate_password(args.length, args.alphanumeric))
 
-def show_passphrase(args):
+def get_passphrase(args):
     """
     Returns
     -------
@@ -188,6 +188,6 @@ def main():
     if args.parser == 'password':
         get_password(args)      
     else: 
-        show_passphrase(args)
+        get_passphrase(args)
 if __name__ == "__main__":
     main()
