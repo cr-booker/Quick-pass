@@ -19,15 +19,16 @@ from textwrap import fill as wrap
 
 def get_args():
     """
-    Gets command-line arguments.
+    Creates the expected command line options 
+    and parses/verifies the given input
     
-    Creates the arguments and options the script expects to 
+    Creates the options the script expects to 
     handle and parses the provided arguments.
     
     Returns
     -------
     Output:(Argparse Obj)
-        returns argparse.Namespace object
+        returns argparse.Namespace  
     """
     parser = argparse.ArgumentParser(prog='Quick-Pass', description=__doc__)
                                              
@@ -72,7 +73,7 @@ def get_args():
     
 def generate_password(length, alphanumeric):
     """
-    Generates a string from randomly 
+    Creates a string from randomly 
     selected symbols and characters.
     
     The password built must contain:
@@ -90,7 +91,7 @@ def generate_password(length, alphanumeric):
         ideally passwords should be have a minimum length 
         of 10, but of course, the longer the better.
        
-        *Defaults to a length of 10
+        *Defaults to 10
         
     use_symbols(Bool):
         Determines whether to use 
@@ -122,14 +123,27 @@ def generate_password(length, alphanumeric):
                                 
 def generate_passphrase(wordcount, spaces, path):
    """
+   Randomly selects words from the "wordlist" 
+   text file joining them to create a passphrase.
+   
    Parameters
    ----------
    wordcount(Int):
        Number of words to be used 
        for the passphrase
        
-   spaces(Bool):
+       *Defaults to 4
        
+   spaces(Bool):
+       If set to True, adds a space between each 
+       word
+       
+       *Defaults to True
+   
+   path(String):
+       Path to wordlist file
+       
+       *Defaults to '.'
    
    Returns
    -------
@@ -149,7 +163,16 @@ def generate_passphrase(wordcount, spaces, path):
    return passphrase
    
 def show_password(args):
-
+    """
+    Generates/displays password(s).
+    
+    args(Argparse Obj)
+        Argparse Namespace object
+    
+    Returns
+    -------
+    Output(None)
+    """
     if args.length < 8:
         print('WARNING.\nIt is recommended you use generated \npasswords that are'\
              ' atleast 10 characters long.')
@@ -165,6 +188,11 @@ def show_password(args):
 
 def get_passphrase(args):
     """
+    Generates/displays passphrase(s).
+    
+    args(Argparse Obj)
+        Argparse Namespace object
+        
     Returns
     -------
     Output(None)
@@ -176,6 +204,10 @@ def get_passphrase(args):
 def main():
     """
     Main function.
+    
+    Gets command line arguments 
+    and displays the created 
+    password(s)/passphrase(s).
    
     Returns
     -------
