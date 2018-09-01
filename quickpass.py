@@ -20,10 +20,7 @@ from textwrap import fill as wrap
 def get_args():
     """
     Creates the expected command line options 
-    and parses/verifies the given input
-    
-    Creates the options the script expects to 
-    handle and parses the provided arguments.
+    and parses the given input.
     
     Returns
     -------
@@ -66,7 +63,7 @@ def get_args():
     if p_args.parser == "passphrase" and p_args.length < 2:
         parser.error("-length option requires an integer >= 2")  
         
-    if len(sys.argv) > 1:
+    if len(sys.argv) > 1: #No arguements given
         return p_args
     parser.print_help()
     sys.exit()
@@ -81,7 +78,7 @@ def generate_password(length, alphanumeric):
     1 number 
     1 uppercase letter
     1 lowercase letter
-    and if the use_symbols parameter is set to True
+    and if the alphanumeric parameter is set to False
     1 symbol/punctuation
    
     Parameters
@@ -93,12 +90,18 @@ def generate_password(length, alphanumeric):
        
         *Defaults to 10
         
-    use_symbols(Bool):
-        Determines whether to use 
-        symbols and punctuation
+    alphanumeric(Bool):
+        Determines whether to exclude symbols/punctuation 
         Ex. (!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~)
+        and restrict  the character pool to:
         
-        *Defaults to True
+        Upper and Lowercase letter A-Z 
+        and 
+        numbers 0-9
+        
+        
+        
+        *Defaults to False
         
    Returns
    -------
