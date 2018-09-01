@@ -93,13 +93,10 @@ def generate_password(length, alphanumeric):
     alphanumeric(Bool):
         Determines whether to exclude symbols/punctuation 
         Ex. (!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~)
-        and restrict  the character pool to:
         
-        Upper and Lowercase letter A-Z 
-        and 
-        numbers 0-9
-        
-        
+        and restrict the character pool to
+        Upper and Lowercase letter A-Z and 
+        numbers 0-9.
         
         *Defaults to False
         
