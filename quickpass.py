@@ -1,21 +1,21 @@
 #!/usr/bin/env python3
 """
 Quck-Pass is a Python script that
-generates a strong password or passphrase that can
-be used for just about anything.
+generates a decently strong password or passphrase 
+that can be used for just about anything.
+
 It sucks trying to think of a new
 password on the fly,
 Quick-Pass takes care of that ickyness for you.
 """
 import argparse 
-
 try:
     import secrets as random #Python 3.6 or higher
 except ImportError:
-    import random
-    
+    import random  
 import string
 import sys
+from textwrap import fill as wrap
 
 def get_args():
     """
@@ -24,35 +24,58 @@ def get_args():
     Creates the arguments and options the script expects to 
     handle and parses the provided arguments.
     
-    All arguments have a single letter "-" version 
-    and a longer "--" version.
     Returns
     -------
-    Output:(Class)
+    Output:(Argparse Obj)
         returns argparse.Namespace object
     """
     parser = argparse.ArgumentParser(prog='Quick-Pass', description=__doc__)
-    parser.add_argument("-l", "--length", type=int, default=10, help="The desired number of characters to be used.")
-    parser.add_argument("-a", "--alphanumeric", action='store_false', help="Turns off the use of special characters.")
-    parser.add_argument("-q", "--quantity", type=int, default=1, help="The number of passwords/passphrases to generate.")
+                                             
+    subparsers = parser.add_subparsers(help='sub-command help', dest='parser')
     
-    parser.add_argument('-p', "--passphrase")
+    password_parser = subparsers.add_parser("password", description="Generates a password.", help='Password Help')
+
+    password_parser.add_argument("-l", "--length", type=int, default=10,
+                        help="The desired number of characters to be used.")
+                                             
+    password_parser.add_argument("-a", "--alphanumeric", action='store_true', 
+                        help="Turns off the use of special characters.")
+                        
+    password_parser.add_argument("-q", "--quantity", type=int, default=1, 
+                        help="The number of passwords to generate.")
+                        
+    passphrase_parser = subparsers.add_parser("passphrase",  description="generates a passphrase", 
+                                              help='Passphrase Help')
+                                              
+    passphrase_parser.add_argument("-l", "--length", type=int, default=4,
+                                   help="The number of words to be used for passphrase.")
+                                   
+    passphrase_parser.add_argument("-s", "--spaces", action='store_true', 
+                        help="Use spaces in-between words")
+    
+    passphrase_parser.add_argument("-q", "--quantity", type=int, default=1, 
+                        help="The number of passphrases to generate.")
+                        
+    passphrase_parser.add_argument("-p", "--path", default='.' ,help="path to wordlist file.")
+    
     p_args =  parser.parse_args()
-    if p_args.length < 4:
+    if p_args.parser == "password" and p_args.length < 4:
         parser.error("-length option requires an integer >= 4")
-    return p_args
     
-def generate_password(length, use_symbols):
+    if p_args.parser == "passphrase" and p_args.length < 2:
+        parser.error("-length option requires an integer >= 2")  
+        
+    if len(sys.argv) > 1:
+        return p_args
+    parser.print_help()
+    sys.exit()
+    
+def generate_password(length, alphanumeric):
     """
     Generates a string from randomly 
-    selected characters.
+    selected symbols and characters.
     
-    The function verifys the state of the 
-    use_symbols argument and concatenates the string of 
-    characters accordingly.
-    
-    The password is built inside a while loop
-    continuing until the string contains atleast:
+    The password built must contain:
     
     1 number 
     1 uppercase letter
@@ -81,10 +104,10 @@ def generate_password(length, use_symbols):
    Output(String):
        Returns Password String
     """
-    if use_symbols:
-        chars = ''.join((string.ascii_letters, string.digits, string.punctuation))
-    else:
+    if alphanumeric:
         chars = ''.join((string.ascii_letters, string.digits))
+    else:   
+        chars = ''.join((string.ascii_letters, string.digits, string.punctuation))
     while True:
         password = (''.join(random.SystemRandom().choice(chars)
                     for i in range(length)))
@@ -92,12 +115,12 @@ def generate_password(length, use_symbols):
         if (any(ch.isdigit() for ch in password) and
             any(ch.isupper() for ch in password) and
             any(ch.islower() for ch in password)):
-            if not use_symbols:
+            if alphanumeric:
                 return password 
             elif any(ch in string.punctuation for ch in password):
                 return password
-                
-def generate_passphrase(wordcount, spaces, path='.'):
+                                
+def generate_passphrase(wordcount, spaces, path):
    """
    Parameters
    ----------
@@ -123,28 +146,37 @@ def generate_passphrase(wordcount, spaces, path='.'):
        passphrase = ' '.join(words)
    else:
        passphrase = ''.join(words)
+   return passphrase
    
+def show_password(args):
 
+    if args.length < 8:
+        print('WARNING.\nIt is recommended you use generated \npasswords that are'\
+             ' atleast 10 characters long.')
+        print('-' * 46)
+        
+    if args.alphanumeric:           
+        print('WARNING.\nIt is recommended you include symbols \nand punctuation'\
+             ' for a more secure password.')
+        print('-' * 46)
+        
+    for index, value in enumerate(range(args.quantity), start=1):
+        print(str(index) + ')', generate_password(args.length, args.alphanumeric))
+
+def show_passphrase(args):
+    """
+    Returns
+    -------
+    Output(None)
+    """
+    args.length, args.spaces, args.path
+    for index, value in enumerate(range(args.quantity), start=1):
+        print(str(index) + ')', generate_passphrase(args.length, args.spaces, args.path))
+        
 def main():
     """
-    Main function: 
-    Starting point of script.
-    
-    The get_args function 
-    retrieves the commmand line arguments
-    we wil be using.A for-loop is constructed calling and
-    printing the return value(string) of the 
-    generate_password function, 
-    
-    with args.quantity being the number of 
-    iterations(defaults to 1).
-    
-    If the args.length is less than 10 a warning 
-    is shown advising against generating shorter 
-    passwords(but im sure they have their uses).
-    
-    
-    
+    Main function.
+   
     Returns
     -------
     Output(None)
@@ -153,19 +185,9 @@ def main():
     print('----------------\n'\
           '[+]Quick-Pass[+]\n'\
           '----------------')
-          
-    if args.length < 8:
-        print('WARNING.\nIt is recommended you use generated \npasswords that are'\
-              ' atleast 10 characters long.')
-        print('-' * 46)
-        
-    if not args.alphanumeric:           
-        print('WARNING.\nIt is recommended you include symbols \nand punctuation'\
-              ' for a more secure password.')
-        print('-' * 46)
-        
-    for index, value in enumerate(range(args.quantity), start=1):
-        print(str(index) + ')', generate_password(args.length, args.alphanumeric))
-    
+    if args.parser == 'password':
+        get_password(args)      
+    else: 
+        show_passphrase(args)
 if __name__ == "__main__":
     main()
