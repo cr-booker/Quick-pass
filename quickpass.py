@@ -22,10 +22,36 @@ def get_args():
     Creates the expected command line options 
     and parses the given input.
     
+    Password Parser Arguments
+    -------------------------
+    length(Int)
+        Password length.
+    
+    alphanumeric(Bool)
+        Use only letters A-z and 
+        numbers 0-9.
+        
+    quantity(Int)
+        Number of passwords to create.
+        
+    Passphrase Parser Arguments
+    ---------------------------
+    length(Int)
+        Passphrase length.
+    
+    spaces(Bool)
+        Include spaces between words.
+    
+    quantity(Int)
+       Number of passphrases to create.
+    
+    path(String)
+        Path to wordlist.txt
+    
     Returns
     -------
     Output:(Argparse Obj)
-        returns argparse.Namespace  
+        argparse.Namespace object.
     """
     parser = argparse.ArgumentParser(prog='Quick-Pass', description=__doc__)
                                              
