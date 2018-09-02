@@ -103,7 +103,7 @@ def generate_password(length, alphanumeric):
    Returns
    -------
    Output(String):
-       Returns Password String
+       Password String.
     """
     if alphanumeric:
         chars = ''.join((string.ascii_letters, string.digits))
@@ -130,24 +130,25 @@ def generate_passphrase(wordcount, spaces, path):
    ----------
    wordcount(Int):
        Number of words to be used 
-       for the passphrase
+       for the passphrase.
        
        *Defaults to 4
        
    spaces(Bool):
        If set to True, adds a space between each 
-       word
+       word.
        
        *Defaults to True
    
    path(String):
-       Path to wordlist file
+       Path to wordlist file.
        
        *Defaults to '.'
    
    Returns
    -------
    Output:(String)
+       passphrase string.
    """
    try:
        with open('wordlist.txt') as infile:
