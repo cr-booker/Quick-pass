@@ -189,7 +189,7 @@ def generate_passphrase(wordcount, spaces, path):
        passphrase = ''.join(words)
    return passphrase
    
-def show_password(args):
+def get_password(args):
     """
     Generates/displays password(s).
     
