@@ -15,7 +15,6 @@ except ImportError:
     import random  
 import string
 import sys
-from textwrap import fill as wrap
 
 def get_args():
     """
@@ -181,7 +180,7 @@ def generate_passphrase(wordcount, spaces, path):
            wordlist = infile.read().splitlines()     
    except FileNotFoundError:
        print('Wordlist.txt not found.')
-       return
+       sys.exit(1)
    words = [random.SystemRandom().choice(wordlist) for i in range(wordcount)]
    if spaces:
        passphrase = ' '.join(words)
@@ -248,5 +247,6 @@ def main():
         get_password(args)      
     else: 
         get_passphrase(args)
+        
 if __name__ == "__main__":
     main()
