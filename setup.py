@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="quick-pass",
-    version="1.0",
+    version="1.0.0",
     author="Christopher Booker",
     author_email="cryanb91@gmail.com",
     description="A password/passphrase generator",
@@ -15,7 +15,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
+        "License :: OSI Approved :: GNU General Public License v3 (GPLv3),
         "Operating System :: OS Independent",
     ],
     entry_points={
