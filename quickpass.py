@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Quck-Pass is a Python script that
-generates a decently strong password or passphrase 
+generates a strong password or passphrase 
 that can be used for just about anything.
 
 It sucks trying to think of a new
