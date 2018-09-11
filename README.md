@@ -39,6 +39,10 @@ Getting Quick-Pass up and running is easy.
 2. Navigate to the cloned Quick-pass directory and enter:  
 `sudo pip install .` 
 
+3. We're Done!
+
+## Running Quick-Pass
+
 
 
 
