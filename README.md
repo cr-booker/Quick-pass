@@ -1,5 +1,4 @@
 # Quick-Pass
-
 Quck-Pass is a Python script that generates a strong  
 password that can be used for just about anything.  
 
@@ -32,6 +31,16 @@ Quick-Pass takes care of that ickyness for you.
 
 
 ## Installation 
+Getting Quick-Pass up and running is easy.
+
+1. Open a terminal window and enter:  
+`git clone https://github.com/syst3m-failur3/Quick-pass.git`  
+
+2. Navigate to the cloned Quick-pass directory and enter:  
+`sudo pip install .` 
+
+
+
 
 
 
