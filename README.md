@@ -4,12 +4,13 @@ password that can be used for just about anything.
 
 
 ## The importance of a strong password
-Im sure you've seen the occasional article or news report,  
+I'm sure you've seen the occasional article or news report,  
 where it's found that employees of "X" company or "Y" Corp  
 had their security practices audited.  
 
 Janice in accounting used ***"password"*** as her password.
-John, well he's a clever boy. He stepped it up a notch: ***"Password123"***.  
+John, well he's a clever boy. He stepped it up a notch:   
+***"Password123"***.  
 I did say he was clever.  
 And then there's Bill,  
 because there's always a Bill.  
@@ -24,7 +25,7 @@ while John and Janice have to attend the super important mandatory
 meeting on why hiding your password under your family guy mouse pad,  
 (Who still uses mouse pads) is a bad idea.  
 We should all strive to be more like Bill.  
-Bill 
+
 
 It sucks trying to think of a new password, especially on the fly.  
 Quick-Pass takes care of that ickyness for you.  
@@ -42,6 +43,12 @@ Getting Quick-Pass up and running is easy.
 3. We're Done!
 
 ## Running Quick-Pass
+Quick-pass can generate passwords and passphrases.  
+
+To generate a password with the default settings just type:  
+`quick-pass password`  
+
+
 
 
 
