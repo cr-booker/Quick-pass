@@ -10,12 +10,12 @@ had their security practices audited.
 
 Janice in accounting used ***"password"*** as her password.
 John, well he's a clever boy. He stepped it up a notch:   
-***"Password123"***.  
+***"Password123"*** .  
 I did say he was clever.  
 And then there's Bill,  
 because there's always a Bill.  
 
-Bill's password is ***"Nr?r7]04Z\"***.  
+Bill's password is ***"Nr?r7]04Z\"*** .  
 Wow Bill, that sounds like a decently strong password!  
 Good Job Pal.  
 
