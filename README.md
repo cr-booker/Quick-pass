@@ -55,22 +55,41 @@ That will give you a single 10 character password.
 Simple enough, yeah?  
 Our options for password generation are as follows:
 
-- -l , --Length  
+- -l, --length  
     * The desired number of characters to be used.  
       (Defaults to 10)
 
-- -a , --alphanumeric  
+- -a, --alphanumeric  
     * disallows the use of special characters.  
-    (Is set to False by Default.)
+      (Is set to False by Default.)
     
-
-- -q --quantity  
+- -q, --quantity  
     * The number of passwords to generate.  
-    (Defaults to 1)
+      Defaults to 1)
 
 
 Now to create a passphrase we enter:  
-`quick-pass passphrase`
+`quick-pass passphrase`  
+This will give you a 4 word password with no spaces  
+Our options for password generation are:
+
+- -l, --length  
+    * The desired number of characters to be used.  
+      (Defaults to 10)
+      
+- -s, --spaces  
+    * Include spaces inbetween each word  
+      (Defaults to False) 
+
+- -q, --quantity  
+    * The number of passwords to generate.  
+      (Defaults to 1)
+
+- -p, --path  
+    * The path to wordlist.txt file  
+      (If you'd like to use your own instead  
+       instead of the provided diceware list)
+
 
 
 
