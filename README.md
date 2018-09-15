@@ -89,6 +89,21 @@ Our options for password generation are:
     * The path to wordlist.txt file  
       (If you'd like to use your own instead  
        instead of the provided diceware list)
+       
+## Password Tips
+Id like to just toss in some helpful password  
+and security tips. 
+
+- Password is not a good password.  
+  Adding 1,2,3 doesnt make it better, i promise.
+  
+- Never share your passwords with co-workers or really anyone for that matter.  
+  [1 in 5 employees share their email passwords with coworkers](https://nakedsecurity.sophos.com/2018/09/11/yikes-1-in-5-employees-share-their-email-passwords-with-coworkers/)
+
+
+  
+
+  
 
 
 
