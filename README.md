@@ -111,7 +111,7 @@ and security tips.
 - If you have alot of long, complicated passwords to remember,  
   consider using a trusted password manager.  
   [How to evaluate a password manager?](https://security.stackexchange.com/questions/32536/how-to-evaluate-a-password-manager)  
-      **A few password mangers to get you started.**
+      **A few password mangers to get you started.**  
       - [KeePass](https://keepass.info/)  
       - [BitWarden](https://bitwarden.com/)  
       - [Pass](https://www.passwordstore.org/)  
