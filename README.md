@@ -78,7 +78,7 @@ Our options for password generation are:
       (Defaults to 10)
       
 - -s, --spaces  
-    * Include spaces inbetween each word  
+    * Include spaces in-between each word  
       (Defaults to False) 
 
 - -q, --quantity  
@@ -99,6 +99,23 @@ and security tips.
   
 - Never share your passwords with co-workers or really anyone for that matter.  
   [1 in 5 employees share their email passwords with coworkers](https://nakedsecurity.sophos.com/2018/09/11/yikes-1-in-5-employees-share-their-email-passwords-with-coworkers/)
+  
+- If you believe one of your accounts as been compromised,  
+  don't hesitate,change your password, like right now, like now now  
+  Why are you still reading this.
+  
+- Do not use the same passwords across all you accounts, if someone manages  
+  to get that one password, they have access to everything,  
+  and that's what we like to call, BAD.
+  
+- If you have alot of long, complicated passwords to remember,  
+  consider using a trusted password manager.  
+  [How to evaluate a password manager?](https://security.stackexchange.com/questions/32536/how-to-evaluate-a-password-manager)  
+      **A few password mangers to get you started.**
+      * [KeePass](https://keepass.info/)
+      * [BitWarden](https://bitwarden.com/)
+      * [Pass](https://www.passwordstore.org/)
+      * [1password](https://1password.com/)
 
 
   
