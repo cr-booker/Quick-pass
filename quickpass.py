@@ -184,7 +184,30 @@ def generate_passphrase(wordcount, spaces, path):
        passphrase = ''.join(words)
    return passphrase
    
-def get_password(args):
+def password_warnings(pass_arg)
+    """
+    Displays warning for password parser
+    
+    Parameters
+    ----------
+    pass_arg(Argparse obj)
+        Argparse Namespace object
+    
+    Returns
+    -------
+    Output(None)  
+    """
+    if pass_arg.length < 8:
+        print('WARNING.\nIt is recommended you use generated \npasswords that are'\
+             ' atleast 10 characters long.')
+        print('-' * 46)
+        
+    if pass_arg.alphanumeric:           
+        print('WARNING.\nIt is recommended you include symbols \nand punctuation'\
+             ' for a more secure password.')
+        print('-' * 46)
+
+def get_password(args, display_warnings=True):
     """
     Generates/displays password(s).
     
@@ -195,16 +218,9 @@ def get_password(args):
     -------
     Output(None)
     """
-    if args.length < 8:
-        print('WARNING.\nIt is recommended you use generated \npasswords that are'\
-             ' atleast 10 characters long.')
-        print('-' * 46)
-        
-    if args.alphanumeric:           
-        print('WARNING.\nIt is recommended you include symbols \nand punctuation'\
-             ' for a more secure password.')
-        print('-' * 46)
-        
+    if display_warnings:
+        password_warnings(args)
+               
     for index, value in enumerate(range(args.quantity), start=1):
         print(str(index) + ')', generate_password(args.length, args.alphanumeric))
 
