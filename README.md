@@ -90,8 +90,8 @@ Our options for password generation are:
     * The path to wordlist.txt file  
       (If you'd like to use your own instead  
        instead of the provided diceware list)
-       
-       
+
+
 ## Password Tips
 I thought i'd just toss in some helpful password  
 and security tips, because i like you so much
@@ -102,7 +102,7 @@ and security tips, because i like you so much
 - Go ahead and turn on two-factor authentication.  
   [List of websites and whether or not they support 2FA. ](https://twofactorauth.org/)
   
-- Dont neglect software updates!
+- Don't neglect software updates!
   
 - Never share your passwords with co-workers or really anyone for that matter.  
   [1 in 5 employees share their email passwords with coworkers](https://nakedsecurity.sophos.com/2018/09/11/yikes-1-in-5-employees-share-their-email-passwords-with-coworkers/)
