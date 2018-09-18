@@ -1,5 +1,5 @@
 # Quick-Pass
-Quck-Pass is a Python script that generates a strong  
+Quick-Pass is a Python script that generates a strong  
 password that can be used for just about anything.
 
 
@@ -28,10 +28,11 @@ while John and Janice have to attend the super important mandatory
 meeting on why hiding your password under your family guy mouse pad,  
 (Who still uses mouse pads) is a bad idea.  
 We should all strive to be more like Bill.
-
-
-It sucks trying to think of a new password, especially on the fly.  
-Quick-Pass takes care of that ickyness for you.
+However,  
+being like Bill is hard.  
+I get it.  
+Coming up with a decent password on your own sucks, especially on the fly.  
+Let Quick-Pass take care of that ickyness for you.
 
 
 ## Installation 
@@ -90,12 +91,18 @@ Our options for password generation are:
       (If you'd like to use your own instead  
        instead of the provided diceware list)
        
+       
 ## Password Tips
-Id like to just toss in some helpful password  
-and security tips. 
+I thought i'd just toss in some helpful password  
+and security tips, because i like you so much
 
 - Password is not a good password.  
-  Adding 1,2,3 doesnt make it better, i promise.
+  Adding 123 doesn't make it better, i promise.
+  
+- Go ahead and turn on two-factor authentication.  
+  [List of websites and whether or not they support 2FA. ](https://twofactorauth.org/)
+  
+- Dont neglect software updates!
   
 - Never share your passwords with co-workers or really anyone for that matter.  
   [1 in 5 employees share their email passwords with coworkers](https://nakedsecurity.sophos.com/2018/09/11/yikes-1-in-5-employees-share-their-email-passwords-with-coworkers/)
@@ -108,7 +115,7 @@ and security tips.
   to get that one password, they have access to everything,  
   and that's what we like to call, BAD.
   
-- If you have alot of long, complicated passwords to remember,  
+- If you have a lot of long, complicated passwords to remember,  
   consider using a trusted password manager.  
   [How to evaluate a password manager?](https://security.stackexchange.com/questions/32536/how-to-evaluate-a-password-manager)  
       **A few password mangers to get you started.**  
