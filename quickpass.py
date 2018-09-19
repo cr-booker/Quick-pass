@@ -49,20 +49,25 @@ def get_args():
         argparse.Namespace object.
     """
     parser = argparse.ArgumentParser(prog='Quick-Pass', description=__doc__)
-                                             
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.0') 
+                                           
     subparsers = parser.add_subparsers(help='sub-command help', dest='parser')
     
+    ##################Password Parser####################
     password_parser = subparsers.add_parser("password", description="Generates a password.", help='Password Help')
-
-    password_parser.add_argument("-l", "--length", type=int, default=10,
-                        help="The desired number of characters to be used.")
-                                             
     password_parser.add_argument("-a", "--alphanumeric", action='store_true', 
                         help="Turns off the use of special characters.")
                         
+    password_parser.add_argument("-l", "--length", type=int, default=10,
+                        help="The desired number of characters to be used.")
+                                               
+    password_parser.add_argument("-m", "--mute", action='store_true', 
+                        help="Disables warning message about password length and character usage.")   
+                                     
     password_parser.add_argument("-q", "--quantity", type=int, default=1, 
                         help="The number of passwords to generate.")
-                        
+                       
+    ###############Passphrase Parser###################               
     passphrase_parser = subparsers.add_parser("passphrase",  description="generates a passphrase", 
                                               help='Passphrase Help')
                                               
@@ -142,7 +147,8 @@ def generate_password(length, alphanumeric):
             elif any(ch in string.punctuation for ch in password):
                 return password
                                 
-def generate_passphrase(wordcount, spaces, path):
+def generate_passphrase(wordcount, spaces,path, 
+                        padding=False, padding_length=2):
    """
    Randomly selects words from the "wordlist" 
    text file joining them to create a passphrase.
@@ -174,17 +180,20 @@ def generate_passphrase(wordcount, spaces, path):
    try:
        with open('wordlist.txt') as infile:
            wordlist = infile.read().splitlines()     
+       words = [random.SystemRandom().choice(wordlist) for i in range(wordcount)]
+   except IndexError:
+       print('Wordlist.txt empty.')
+       sys.exit(1)
    except FileNotFoundError:
        print('Wordlist.txt not found.')
        sys.exit(1)
-   words = [random.SystemRandom().choice(wordlist) for i in range(wordcount)]
    if spaces:
        passphrase = ' '.join(words)
    else:
        passphrase = ''.join(words)
    return passphrase
    
-def password_warnings(pass_arg)
+def password_warnings(pass_arg):
     """
     Displays warning for password parser
     
@@ -207,7 +216,7 @@ def password_warnings(pass_arg)
              ' for a more secure password.')
         print('-' * 46)
 
-def get_password(args, display_warnings=True):
+def get_password(args):
     """
     Generates/displays password(s).
     
@@ -218,7 +227,7 @@ def get_password(args, display_warnings=True):
     -------
     Output(None)
     """
-    if display_warnings:
+    if not args.mute:
         password_warnings(args)
                
     for index, value in enumerate(range(args.quantity), start=1):
