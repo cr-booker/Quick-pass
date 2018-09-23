@@ -54,34 +54,73 @@ def get_args():
     subparsers = parser.add_subparsers(help='sub-command help', dest='parser')
     
     ##################Password Parser####################
-    password_parser = subparsers.add_parser("password", description="Generates a password.", help='Password Help')
-    password_parser.add_argument("-a", "--alphanumeric", action='store_true', 
-                        help="Turns off the use of special characters.")
+    password_parser = subparsers.add_parser("password", 
+                                            description="Generates a password.", 
+                                            help='Password Help')
+                                                                                     
+    password_parser.add_argument("-a", "--alphanumeric", 
+                                 action='store_true', 
+                                 help="Turns off the use of special characters.")
                         
-    password_parser.add_argument("-l", "--length", type=int, default=10,
-                        help="The desired number of characters to be used.")
+    password_parser.add_argument("-l", "--length", 
+                                 type=int, 
+                                 default=10,
+                                 help="The desired number of characters to be used. (Default: %(default)s).")
                                                
-    password_parser.add_argument("-m", "--mute", action='store_true', 
-                        help="Disables warning message about password length and character usage.")   
+    password_parser.add_argument("-m", "--mute", 
+                                 action='store_true', 
+                                 help="Disables warning message about password length and character usage.")   
                                      
-    password_parser.add_argument("-q", "--quantity", type=int, default=1, 
-                        help="The number of passwords to generate.")
+    password_parser.add_argument("-q", "--quantity", 
+                                 type=int, 
+                                 default=1, 
+                                 help="The number of passwords to generate. (Default: %(default)s)")
                        
-    ###############Passphrase Parser###################               
-    passphrase_parser = subparsers.add_parser("passphrase",  description="generates a passphrase", 
+    ###############Passphrase Parser###################      
+    seperators = '!@$#%&?*:+=.s'
+    casing_options = ("none", "all", "first-letter", "alt")
+    passphrase_parser = subparsers.add_parser("passphrase",  
+                                              description="generates a passphrase", 
                                               help='Passphrase Help')
+    
+    passphrase_parser.add_argument("-c", "--capatalize", default="none",
+                                   nargs='?', choices= casing_options, 
+                                   help="Word casing pattern. (Default: %(default)s)")
                                               
-    passphrase_parser.add_argument("-l", "--length", type=int, default=4,
-                                   help="The number of words to be used for passphrase.")
-                                   
-    passphrase_parser.add_argument("-s", "--spaces", action='store_true', 
-                        help="Use spaces in-between words")
+    passphrase_parser.add_argument("-l", "--length", 
+                                   type=int, 
+                                   default=4,
+                                   help="The number of words for passphrase. (Default: %(default)s)")
     
-    passphrase_parser.add_argument("-q", "--quantity", type=int, default=1, 
-                        help="The number of passphrases to generate.")
-                        
-    passphrase_parser.add_argument("-p", "--path", default='.' ,help="path to wordlist file.")
+    passphrase_parser.add_argument("-q", "--quantity", 
+                                   type=int, 
+                                   default=1, 
+                                   help="The number of passphrases to generate. (Default: %(default)s)")
+                       
+    passphrase_parser.add_argument("-sep", "--seperator", 
+                                   default=random.choice('!@$#%&?*:+=.'), 
+                                   nargs='?', choices=list('!@$#%&?*:+=.'),
+                                   help="Character to insert between words. (Default: Random)", 
+                                   metavar=seperators)
+                           
+    passphrase_parser.add_argument("-s", "--spaces", 
+                                   action='store_true', 
+                                   help="Use spaces in-between words")
     
+    passphrase_parser.add_argument("-p", "--path", 
+                                   default='.',
+                                   help="path to wordlist file.")
+    
+    passphrase_parser.add_argument("-pad", "--padding", 
+                                   default='.',
+                                   help="Character to add at the beginning and end of passphrase. (Default: Random)")
+    
+    passphrase_parser.add_argument("-pad-d", "--padding-depth", 
+                                   type=int, 
+                                   default='2' ,
+                                   help="Number of characters for padding. (Default: %(default)s)")
+    
+                  
     p_args =  parser.parse_args()
     if p_args.parser == "password" and p_args.length < 4:
         parser.error("-length option requires an integer >= 4")
@@ -90,11 +129,14 @@ def get_args():
         parser.error("-length option requires an integer >= 2")  
         
     if len(sys.argv) > 1: #No arguements given
+        x = (vars(p_args))
+        print(type(x['length']))
+        input()
         return p_args
     parser.print_help()
     sys.exit()
     
-def generate_password(length, alphanumeric):
+def generate_password(length=10, alphanumeric=False):
     """
     Creates a string from randomly 
     selected symbols and characters.
@@ -146,27 +188,9 @@ def generate_password(length, alphanumeric):
                 return password 
             elif any(ch in string.punctuation for ch in password):
                 return password
-                                
-def generate_passphrase(wordcount, spaces,path, 
-                        padding=False, padding_length=2):
+                    
+def get_words(wordcount, path='.'):
    """
-   Randomly selects words from the "wordlist" 
-   text file joining them to create a passphrase.
-   
-   Parameters
-   ----------
-   wordcount(Int):
-       Number of words to be used 
-       for the passphrase.
-       
-       *Defaults to 4
-       
-   spaces(Bool):
-       If set to True, adds a space between each 
-       word.
-       
-       *Defaults to True
-   
    path(String):
        Path to wordlist file.
        
@@ -178,21 +202,29 @@ def generate_passphrase(wordcount, spaces,path,
        passphrase string.
    """
    try:
-       with open('wordlist.txt') as infile:
+       with open(os.path.join(path,'wordlist.txt')) as infile:
            wordlist = infile.read().splitlines()     
        words = [random.SystemRandom().choice(wordlist) for i in range(wordcount)]
+       return words
    except IndexError:
-       print('Wordlist.txt empty.')
+       print('wordlist.txt empty.')
        sys.exit(1)
    except FileNotFoundError:
-       print('Wordlist.txt not found.')
+       print('wordlist.txt not found.')
        sys.exit(1)
-   if spaces:
-       passphrase = ' '.join(words)
-   else:
-       passphrase = ''.join(words)
-   return passphrase
-   
+                   
+def generate_passphrase(**kwargs):
+    valid_keys = ("length", "spaces", "quantity", "seperator", "wordcase",
+                  "padding", "paddepth") 
+    words = get_words(kwargs['length'],kwargs['path'])
+    
+    
+    
+
+
+
+
+  
 def password_warnings(pass_arg):
     """
     Displays warning for password parser
@@ -244,7 +276,7 @@ def get_passphrase(args):
     -------
     Output(None)
     """
-    args.length, args.spaces, args.path
+
     for index, value in enumerate(range(args.quantity), start=1):
         print(str(index) + ')', generate_passphrase(args.length, args.spaces, args.path))
         
