@@ -79,11 +79,12 @@ def get_args():
                        
     ###############Passphrase Parser###################      
     seperators = '!@$#%&?*:+=.s'
-    casing_options = ("none", "all", "first-letter", "alt-word", "alt-letter")
+    casing_options = ("all", "first-letter", "alt-word", "alt-letter")
+    
     passphrase_parser = subparsers.add_parser("passphrase",  
                                               description="generates a passphrase", 
                                               help='Passphrase Help')
-    passphrase_parser.add_argument("-c", "--capitalize", default="none",
+    passphrase_parser.add_argument("-c", "--capitalize", default=None,
                                    nargs='?', choices= casing_options, 
                                    help="Word casing pattern. (Default: %(default)s)")
                                               
@@ -96,14 +97,13 @@ def get_args():
                                    type=int, 
                                    default=1, 
                                    help="The number of passphrases to generate. (Default: %(default)s)")
-
     
     passphrase_parser.add_argument("-p", "--path", 
                                    default='.',
                                    help="path to wordlist file.")
     
     passphrase_parser.add_argument("-pad", "--padding", 
-                                   default='none',
+                                   
                                    help="Character to add at the beginning and end of passphrase. (Default: Random)")
     
     passphrase_parser.add_argument("-pad-d", "--padding-depth", 
@@ -111,17 +111,11 @@ def get_args():
                                    default='2' ,
                                    help="Number of characters for padding. (Default: %(default)s)")
                            
-    passphrase_parser.add_argument("-sep", "--seperator", 
-                                   
-                                   default=random.choice('!@$#%&?*-:+=.'), 
-                                   nargs='?', choices=list('!@$#%&?-*:+=.'),
-                                   help="Character to insert between words. (Default: Random)", 
+    passphrase_parser.add_argument("-s", "--seperator",                                    
+                                   default=" ", 
+                                   help="Character to insert between words. (Default: Single Space)", 
                                    metavar=seperators)
-                           
-    passphrase_parser.add_argument("-s", "--spaces", 
-                                   action='store_false', 
-                                   help="Use spaces in-between words")
-              
+    
     p_args =  parser.parse_args()
     if p_args.parser == "password" and p_args.length < 4:
         parser.error("-length option requires an integer >= 4")
@@ -223,22 +217,35 @@ def get_words(wordcount, path='.'):
        
 def word_casing(words, casing):
     """
-    Takes a list
+    Takes a list of strings
+    and changes their casing.
+    
+    "all":
+        Capitalize every word.
+    
+    "first-letter":
+        Capitalizes the first letter in each word.      
+    
+    "alt-word":
+        Capitalizes every other word.
+    
+    "alt-letter":
+        Capitalizes every other letter.
+    
     Parameters
     ----------
     words(List):
+         List of strings
     
     casing(String)
-    
-    
+        Determines which characters
+        to capitalize
+
     Returns
     -------
     Output:(List)
         list of strings with new casing pattern
     """
-    #if casing not in ("all", "first-letter", "alt-word, alt-letter"):
-     #   raise TypeError
-        
     if casing ==  "all":
         new_casing = [entry.upper() for entry in words]
     elif casing == "first-letter":
@@ -255,34 +262,62 @@ def word_casing(words, casing):
     
 def generate_passphrase(**kwargs):
     """
+    Generates a Passphrase
+    
+    Kawrgs
+    ------
+    "capitalize":
+        Word casing pattern.
+    
+    "length": 
+         The number of words for passphrase.
+    
+    "padding":
+        Character to add at the beginning and end of passphrase.
+    "paddepth"
+    
+    "path"
+        path to wordlist file.
+      
+    "seperator"
+        Character to insert between words.
+      
+    Returns
+    -------
+    Output(String):
+        Passphrase String   
     """
-    valid_keys = ("parser", "length", "spaces", 
+    valid_keys = ("parser", "length", "spaces", "path"
                   "quantity", "seperator", "capitalize",
                   "padding", "paddepth") 
                   
     words = get_words(kwargs['length'],kwargs['path'])
-    if kwargs["capitalize"] != "none":
+    
+    if kwargs["capitalize"] is not None:
         words = word_casing(words, kwargs["capitalize"])
    
-    if kwargs['padding'] != "none":
+    if kwargs['padding'] is not None:
         pad = kwargs['padding'] * kwargs['padding_depth']
         words[0] = ''.join((pad, words[0]))
-        words[-1] = ''.join((words[-1], pad))        
-    if kwargs['spaces'] == True:
-        return ' '.join(words)
-    if kwargs['seperator'] != "none":
-        return kwargs['seperator'].join(words)
-    return ''.join(words)
+        words[-1] = ''.join((words[-1], pad))   
+
+    for index,word in enumerate(words):
+        if index & 1 == 1:
+            words.insert(index, kwargs['seperator'])       
+    return ''.join((words))
     
 def password_warnings(length, alphanumeric):
     """
-    Displays warning for password parser
+    Displays warning for password generator
     
     Parameters
     ----------
-    pass_arg(Argparse obj)
-        Argparse Namespace object
+    length(Int)
+        length of password
     
+    alphanumeric(Bool)
+        True if password only contains numbers and letters
+        
     Returns
     -------
     Output(None)  
@@ -301,8 +336,8 @@ def display(args):
     """
     Generates/displays passphrase(s).
     
-    args(Argparse Obj)
-        Argparse Namespace object
+    args(Dict)
+       Options from parsers
         
     Returns
     -------
@@ -331,7 +366,6 @@ def main():
     Output(None)
     """
     args = get_args()
-    #print(args)
     print('----------------\n'\
           '[+]Quick-Pass[+]\n'\
           '----------------')
