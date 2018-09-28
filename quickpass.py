@@ -78,15 +78,18 @@ def get_args():
                                  help="The number of passwords to generate. (Default: %(default)s)")
                        
     ###############Passphrase Parser###################      
-    seperators = '!@$#%&?*:+=.s'
-    casing_options = ("all", "first-letter", "alt-word", "alt-letter")
+    symbols = '!@$#%?*:+-=.s'
+    casing_options = "all", "first-letter", "alt-word", "alt-letter"
     
     passphrase_parser = subparsers.add_parser("passphrase",  
                                               description="generates a passphrase", 
                                               help='Passphrase Help')
-    passphrase_parser.add_argument("-c", "--capitalize", default=None,
-                                   nargs='?', choices= casing_options, 
-                                   help="Word casing pattern. (Default: %(default)s)")
+    passphrase_parser.add_argument("-c", "--capitalize", 
+                                   default=None,
+                                   nargs='?', 
+                                   choices= casing_options,                                    
+                                   help="Word casing pattern. (Default: %(default)s)",
+                                   metavar= ', '.join(casing_options))
                                               
     passphrase_parser.add_argument("-l", "--length", 
                                    type=int, 
@@ -100,21 +103,29 @@ def get_args():
     
     passphrase_parser.add_argument("-p", "--path", 
                                    default='.',
-                                   help="path to wordlist file.")
+                                   help="path to wordlist file. (Default: Current Dir")
     
     passphrase_parser.add_argument("-pad", "--padding", 
-                                   
+                                   nargs="?",
+                                   const=random.SystemRandom().choice(symbols),
                                    help="Character to add at the beginning and end of passphrase. (Default: Random)")
     
-    passphrase_parser.add_argument("-pad-d", "--padding-depth", 
+    passphrase_parser.add_argument("-pd", "--padding-depth", 
                                    type=int, 
-                                   default='2' ,
+                                   default = '2',               
                                    help="Number of characters for padding. (Default: %(default)s)")
                            
     passphrase_parser.add_argument("-s", "--seperator",                                    
                                    default=" ", 
+                                   nargs="?",
+                                   const=random.SystemRandom().choice(symbols),
                                    help="Character to insert between words. (Default: Single Space)", 
-                                   metavar=seperators)
+                                   metavar=' '.join((symbols)))
+                                   
+    passphrase_parser.add_argument("-sd", "--seperator-depth", 
+                                   type=int, 
+                                   default='1' ,
+                                   help="Number of characters for seperator. (Default: %(default)s)")
     
     p_args =  parser.parse_args()
     if p_args.parser == "password" and p_args.length < 4:
@@ -274,6 +285,7 @@ def generate_passphrase(**kwargs):
     
     "padding":
         Character to add at the beginning and end of passphrase.
+        
     "paddepth"
     
     "path"
@@ -282,14 +294,15 @@ def generate_passphrase(**kwargs):
     "seperator"
         Character to insert between words.
       
+    "seperator_depth"
     Returns
     -------
     Output(String):
         Passphrase String   
     """
     valid_keys = ("parser", "length", "spaces", "path"
-                  "quantity", "seperator", "capitalize",
-                  "padding", "paddepth") 
+                  "quantity", "seperator", "seperator_depth", "capitalize",
+                  "padding", "padding-depth") 
                   
     words = get_words(kwargs['length'],kwargs['path'])
     
@@ -303,7 +316,7 @@ def generate_passphrase(**kwargs):
 
     for index,word in enumerate(words):
         if index & 1 == 1:
-            words.insert(index, kwargs['seperator'])       
+            words.insert(index, kwargs['seperator'] * kwargs['seperator_depth'] )       
     return ''.join((words))
     
 def password_warnings(length, alphanumeric):
@@ -366,6 +379,7 @@ def main():
     Output(None)
     """
     args = get_args()
+   
     print('----------------\n'\
           '[+]Quick-Pass[+]\n'\
           '----------------')
