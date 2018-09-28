@@ -118,7 +118,7 @@ def get_args():
     passphrase_parser.add_argument("-s", "--seperator",                                    
                                    default=" ", 
                                    nargs="?",
-                                   const=random.SystemRandom().choice(symbols),
+                                   const=random.choice(symbols),
                                    help="Character to insert between words. (Default: Single Space)", 
                                    metavar=' '.join((symbols)))
                                    
@@ -379,7 +379,7 @@ def main():
     Output(None)
     """
     args = get_args()
-   
+    print(args)
     print('----------------\n'\
           '[+]Quick-Pass[+]\n'\
           '----------------')
