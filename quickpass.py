@@ -379,7 +379,6 @@ def main():
     Output(None)
     """
     args = get_args()
-    print(args)
     print('----------------\n'\
           '[+]Quick-Pass[+]\n'\
           '----------------')
