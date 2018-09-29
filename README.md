@@ -68,7 +68,7 @@ Quick-pass is comprised of two sub-commands:
       -q QUANTITY, --quantity QUANTITY
           The number of passwords to generate. (Default: 1)
 
-Entering in `quick-pass password`  
+Entering `quick-pass password`  
 will give you a single 10 character password.  
 something like **pyIsq*7}eb**
 
