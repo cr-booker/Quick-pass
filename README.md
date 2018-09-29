@@ -1,6 +1,13 @@
 # Quick-Pass
 Quick-Pass is a Python script that generates a strong  
-password that can be used for just about anything.
+password that can be used for just about anything.  
+
+The aim here is to provide users with a  
+decent password with just few keystrokes.  
+Coming up with a decent password on your own sucks,  
+especially on the fly,
+let Quick-Pass take care of that ickyness for you.
+
 
 ## The importance of a strong password
 I'm sure you've seen the occasional article or news report,  
@@ -27,11 +34,6 @@ while John and Janice have to attend the super important mandatory
 meeting on why hiding your password under your family guy mouse pad,  
 (Who still uses mouse pads) is a bad idea.  
 We should all strive to be more like Bill.
-However,  
-being like Bill is hard.  
-I get it.  
-Coming up with a decent password on your own sucks, especially on the fly.  
-Let Quick-Pass take care of that ickyness for you.
 
 ## Installation 
 Getting Quick-Pass up and running is easy.
@@ -44,54 +46,79 @@ Getting Quick-Pass up and running is easy.
 
 3. We're Done!
 
-## Running Quick-Pass
-Quick-pass can generate passwords and passphrases.  
 
-To generate a password with the default settings just type:  
-`quick-pass password`  
-That will give you a single 10 character password.
+## Usage
+Quick-pass is comprised of two sub-commands:  
+#### password
+    usage: Quick-Pass password [-h] [-a] [-l LENGTH] [-m] [-q QUANTITY]
 
-Simple enough, yeah?  
-Our options for password generation are as follows:
+    optional arguments:
+      -h, --help
+          show this help message and exit
+          
+      -a, --alphanumeric
+          Turns off the use of special characters.
+          
+      -l LENGTH, --length LENGTH
+          The desired number of characters to be used. (Default: 10).
+                        
+      -m, --mute
+          Disables warning message about password length and character usage.
+          
+      -q QUANTITY, --quantity QUANTITY
+          The number of passwords to generate. (Default: 1)
 
-- -l, --length  
-    * The desired number of characters to be used.  
-      (Defaults to 10)
+Entering in `quick-pass password`  
+will give you a single 10 character password.  
+something like **pyIsq*7}eb**
 
-- -a, --alphanumeric  
-    * disallows the use of special characters.  
-      (Is set to False by Default.)
-    
-- -q, --quantity  
-    * The number of passwords to generate.  
-      Defaults to 1)
+Simple enough, yeah?
+#### passphrase
+    usage: Quick-Pass passphrase [-h]
+                                 [-c [all, first-letter, alt-word, alt-letter]]
+                                 [-l LENGTH] [-q QUANTITY] [-p PATH]
+                                 [-pad [PADDING]] [-pd PADDING_DEPTH]
+                                 [-s [! @ $ # % ? * : + - = . s]]
+                                 [-sd SEPERATOR_DEPTH]
 
-
-Now to create a passphrase we enter:  
-`quick-pass passphrase`  
-This will give you a 4 word password with no spaces  
-Our options for password generation are:
-
-- -l, --length  
-    * The desired number of characters to be used.  
-      (Defaults to 10)
+    optional arguments:
+      -h, --help
+          show this help message and exit
+          
+      -c [all, first-letter, alt-word, alt-letter], 
+      --capitalize [all, first-letter, alt-word, alt-letter]
+          Word casing pattern. (Default: None)
+          
+      -l LENGTH, --length LENGTH
+          The number of words for passphrase. (Default: 4)
+          
+      -q QUANTITY, --quantity QUANTITY
+                        The number of passphrases to generate. (Default: 1)
+                        
+      -p PATH, --path PATH  path to wordlist file. (Default: Current Dir)
       
-- -s, --spaces  
-    * Include spaces in-between each word  
-      (Defaults to False) 
+      -pad [PADDING], --padding [PADDING]
+                        Character to add at the beginning and end of
+                        passphrase. (Default: Random)
+                        
+      -pd PADDING_DEPTH, --padding-depth PADDING_DEPTH
+                        Number of characters for padding. (Default: 2)
+                        
+      -s [! @ $ # % ? * : + - = . s], --seperator [! @ $ # % ? * : + - = . s]
+                        Character to insert between words. (Default: Single
+                        Space)
+                        
+      -sd SEPERATOR_DEPTH, --seperator-depth SEPERATOR_DEPTH
+                        Number of characters for seperator. (Default: 1)
 
-- -q, --quantity  
-    * The number of passwords to generate.  
-      (Defaults to 1)
+`quick-pass passphrase`  
+This will give you a 4 word password seperated by a single space  
+like: **Honor sweet yams afterglow** which would make a decent band name.
 
-- -p, --path  
-    * The path to wordlist.txt file  
-      (If you'd like to use your own instead  
-       instead of the provided diceware list)
 
 ## Password Tips
 I thought i'd just toss in some helpful password  
-and security tips, because i like you so much
+and security tips, because i like you so much.
 
 - Password is not a good password.  
   Adding 123 doesn't make it better, i promise.
@@ -120,13 +147,16 @@ and security tips, because i like you so much
       - [BitWarden](https://bitwarden.com/)  
       - [Pass](https://www.passwordstore.org/)  
       - [1password](https://1password.com/)  
-          
+      
+      
 ## License
 Quick-pass is available under the GNU General Public License v3 (GPLv3)  
 Check out [License](LICENSE) for more details.
+
 
 ## Contact Info
 Have Questions, comments, complaints,  
 concerns, predictions, spam?  
 Send it my way.  
 Email: cryanb91@gmail.com
+
