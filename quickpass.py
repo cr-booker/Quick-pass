@@ -103,7 +103,7 @@ def get_args():
     
     passphrase_parser.add_argument("-p", "--path", 
                                    default='.',
-                                   help="path to wordlist file. (Default: Current Dir")
+                                   help="path to wordlist file. (Default: Current Dir)")
     
     passphrase_parser.add_argument("-pad", "--padding", 
                                    nargs="?",
