@@ -2,7 +2,6 @@
 Quick-Pass is a Python script that generates a strong  
 password that can be used for just about anything.
 
-
 ## The importance of a strong password
 I'm sure you've seen the occasional article or news report,  
 where it's found that employees of "X" company or "Y" Corp  
@@ -33,7 +32,6 @@ being like Bill is hard.
 I get it.  
 Coming up with a decent password on your own sucks, especially on the fly.  
 Let Quick-Pass take care of that ickyness for you.
-
 
 ## Installation 
 Getting Quick-Pass up and running is easy.
@@ -91,7 +89,6 @@ Our options for password generation are:
       (If you'd like to use your own instead  
        instead of the provided diceware list)
 
-
 ## Password Tips
 I thought i'd just toss in some helpful password  
 and security tips, because i like you so much
@@ -123,3 +120,13 @@ and security tips, because i like you so much
       - [BitWarden](https://bitwarden.com/)  
       - [Pass](https://www.passwordstore.org/)  
       - [1password](https://1password.com/)  
+          
+## License
+Quick-pass is available under the GNU General Public License v3 (GPLv3)  
+Check out [License](LICENSE) for more details.
+
+## Contact Info
+Have Questions, comments, complaints,  
+concerns, predictions, spam?  
+Send it my way.  
+Email: cryanb91@gmail.com
