@@ -75,18 +75,18 @@ something like **pyIsq*7}eb**
 Simple enough, yeah?
 #### passphrase
     usage: Quick-Pass passphrase [-h]
-                                 [-c [all, first-letter, alt-word, alt-letter, last-letter, random]]]
+                                 [-c [all, first-letter, alt-word, alt-letter, last-letter, random]
                                  [-l LENGTH] [-q QUANTITY] [-p PATH]
-                                 [-pad [PADDING]] [-pd PADDING_DEPTH]
-                                 [-s [! @ $ # % ? * : + - = . s]]
+                                 [-pad [PADDING] [-pd PADDING_DEPTH]
+                                 [-s [! @ $ # % ? * : + - = . s]
                                  [-sd SEPERATOR_DEPTH]
 
     optional arguments:
       -h, --help
           show this help message and exit
           
-      -c [all, first-letter, alt-word, alt-letter], 
-      --capitalize [all, first-letter, alt-word, alt-letter]
+      -c [all, first-letter, alt-word, alt-letter last-letter, random], 
+      --capitalize [all, first-letter, alt-word, alt-letterlast-letter, random]
           Word casing pattern. (Default: None)
           
       -l LENGTH, --length LENGTH
