@@ -85,8 +85,8 @@ Simple enough, yeah?
       -h, --help
           show this help message and exit
           
-      -c [all, first-letter, alt-word, alt-letter last-letter, random], 
-      --capitalize [all, first-letter, alt-word, alt-letterlast-letter, random]
+      -c [all, alt-letter, alt-word, first-letter, last-letter, random]
+      --capitalize [all, alt-letter, alt-word, first-letter, last-letter, random]
           Word casing pattern. (Default: None)
           
       -l LENGTH, --length LENGTH
