@@ -75,7 +75,7 @@ something like **pyIsq*7}eb**
 Simple enough, yeah?
 #### passphrase
     usage: Quick-Pass passphrase [-h]
-                                 [-c [all, first-letter, alt-word, alt-letter]]
+                                 [-c [all, first-letter, alt-word, alt-letter, last-letter, random]]]
                                  [-l LENGTH] [-q QUANTITY] [-p PATH]
                                  [-pad [PADDING]] [-pd PADDING_DEPTH]
                                  [-s [! @ $ # % ? * : + - = . s]]
