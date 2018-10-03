@@ -6,6 +6,7 @@ that can be used for just about anything.
 """
 import argparse 
 import os
+from random import random as ranfloat #random.random not apart of secrets module
 try:
     import secrets as random #Python 3.6 or higher
 except ImportError:
@@ -18,8 +19,8 @@ def get_args():
     Creates the expected command line options 
     and parses the given input.
     
-    Password Parser Arguments
-    -------------------------
+    Password Sub-command Arguements
+    -------------------------------
     length(Int)
         Password length.
     
@@ -29,20 +30,38 @@ def get_args():
         
     quantity(Int)
         Number of passwords to create.
+    
+    mute(Bool)
+        Disables warning message about password length 
+        and character usage.
         
-    Passphrase Parser Arguments
-    ---------------------------
+        
+    Passphrase Sub-command Arguments
+    --------------------------------
+    capitalize(string)
+        Word casing pattern.
+    
     length(Int)
         Passphrase length.
-    
-    spaces(Bool)
-        Include spaces between words.
-    
+        
     quantity(Int)
        Number of passphrases to create.
     
     path(String)
         Path to wordlist.txt
+        
+    padding(
+         Character to add at the beginning and end
+         of passphrase
+    
+    padding_depth(Int)
+        Number of characters for padding.
+    
+    seperator(String)
+        Character to insert between words.
+    
+    seperator_depth(Int)
+        Number of characters for seperator.
     
     Returns
     -------
@@ -79,7 +98,8 @@ def get_args():
                        
     ###############Passphrase Parser###################      
     symbols = '!@$#%?*:+-=.s'
-    casing_options = "all", "first-letter", "alt-word", "alt-letter"
+    casing_options = "all", "first-letter", "alt-word", "alt-letter",\
+                     "last-letter", "random"
     
     passphrase_parser = subparsers.add_parser("passphrase",  
                                               description="generates a passphrase", 
@@ -233,15 +253,21 @@ def word_casing(words, casing):
     
     "all":
         Capitalize every word.
-    
-    "first-letter":
-        Capitalizes the first letter in each word.      
+        
+    "alt-letter":
+        Capitalizes every other letter.
     
     "alt-word":
         Capitalizes every other word.
     
-    "alt-letter":
-        Capitalizes every other letter.
+    "first-letter":
+        Capitalizes the first letter in each word.      
+    
+    "last-letter"
+        Capitalizes the last letter of each.
+    
+    "random"
+        Capitalizes random letters in each word.
     
     Parameters
     ----------
@@ -261,8 +287,18 @@ def word_casing(words, casing):
         new_casing = [entry.upper() for entry in words]
     elif casing == "first-letter":
         new_casing = [entry.capitalize() for entry in words]
+    elif casing == "last-letter":
+        new_casing = [entry[:-1:] + entry[-1].upper() for entry in words]
     elif casing == "alt-word": 
-        new_casing = [entry.upper() if entry in words[1::2] else entry for entry in words]       
+        new_casing = [entry.upper() if entry in words[1::2] else entry for entry in words]   
+     
+    elif casing == "random": #cant use random.random if importing secrets
+        for index,item in enumerate(words):
+            split_word = list(item)
+            words[index] = ''.join(ranfloat() > 0.5 and letter.upper() 
+                                   or letter for letter in split_word)       
+        return words
+         
     elif casing == "alt-letter":
         for index, word in enumerate(words):
             split_word = list(word)
@@ -277,35 +313,33 @@ def generate_passphrase(**kwargs):
     
     Kawrgs
     ------
-    "capitalize":
+    "capitalize"(String):
         Word casing pattern.
     
-    "length": 
+    "length"(Int): 
          The number of words for passphrase.
     
-    "padding":
+    "padding"(String):
         Character to add at the beginning and end of passphrase.
         
-    "paddepth"
-    
-    "path"
+    "paddepth"(Int)
+        Number of characters for padding.
+        
+    "path"(String)
         path to wordlist file.
       
-    "seperator"
+    "seperator"(String)
         Character to insert between words.
       
-    "seperator_depth"
+    "seperator_depth"(Int)
+        Number of characters for seperator.
+        
     Returns
     -------
     Output(String):
         Passphrase String   
-    """
-    valid_keys = ("parser", "length", "spaces", "path"
-                  "quantity", "seperator", "seperator_depth", "capitalize",
-                  "padding", "padding-depth") 
-                  
-    words = get_words(kwargs['length'],kwargs['path'])
-    
+    """ 
+    words = get_words(kwargs['length'],kwargs['path'])    
     if kwargs["capitalize"] is not None:
         words = word_casing(words, kwargs["capitalize"])
    
